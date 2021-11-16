@@ -2,7 +2,8 @@
 <launch>
     <arg name="gui" default="true"/>
     <arg name="paused" default="false"/>
-    <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves.world"/>
+    <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves_shipwreck.world"/>
+    <!-- <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves.world"/> -->
     <arg name="namespace" default="rexrov"/>
     <arg name="set_timeout" default="false"/>
     <arg name="timeout" default="0.0"/>
@@ -32,9 +33,9 @@
         output="screen">
         <rosparam subst_value="true">
             meshes:
-                heightmap:
+                <!-- heightmap:
                     mesh: package://uuv_gazebo_worlds/models/sand_heightmap/meshes/heightmap.dae
-                    model: sand_heightmap
+                    model: sand_heightmap -->
                 seafloor:
                     plane: [2000, 2000, 0.1]
                     pose:
@@ -55,8 +56,21 @@
                     plane: [2000, 0.1, 100]
                     pose:
                         position: [0, 1000, -50]
+                <!-- herkules_seabed:
+                    mesh: package://uuv_gazebo_worlds/models/herkules_seabed/meshes/herkules_seabed.dae
+                    pose:
+                      position: [0, 0, -100]
+                    scale: [4, 4, 1] -->
+                herkules_ship_wreck:
+                    mesh: package://uuv_gazebo_worlds/models/herkules_ship_wreck/meshes/herkules.dae
+                    pose:
+                      position: [0, 0, -100]
+                      orientation: [0, 0, 1.57]
         </rosparam>
     </node>
+
+    <!-- shipwreck -->
+
 
     <!-- timeout -->
     <group if="$(arg set_timeout)">
