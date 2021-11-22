@@ -76,6 +76,7 @@
 
     </link>
 
+
     <!-- Set up hydrodynamic plugin given as input parameter -->
     <xacro:insert_block name="gazebo"/>
 
@@ -90,4 +91,71 @@
     <xacro:include filename="$(find rexrov_description)/urdf/rexrov_sensors.xacro"/>
 
   </xacro:macro>
+
+
+
+  <xacro:macro name="dual_arm_offsets" params="namespace left right">
+    <link name="${namespace}/base_link/${left}">
+      <inertial>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+      </inertial>
+
+      <!-- <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="1 1 1" />
+        </geometry>
+        <material name="Cyan">
+          <color rgba="0 1.0 1.0 1.0"/>
+        </material>
+      </visual> -->
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.01" length="0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${namespace}/base_link/${right}">
+      <inertial>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+      </inertial>
+
+      <!-- <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="1 1 1" />
+        </geometry>
+        <material name="Cyan">
+          <color rgba="0 1.0 1.0 1.0"/>
+        </material>
+      </visual> -->
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.01" length="0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${namespace}/left_offset" type="fixed">
+      <parent link="${namespace}/base_link"/>
+      <child link="${namespace}/base_link/${left}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    
+    <joint name="${namespace}/right_offset" type="fixed">
+      <parent link="${namespace}/base_link"/>
+      <child link="${namespace}/base_link/${right}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
 </robot>
