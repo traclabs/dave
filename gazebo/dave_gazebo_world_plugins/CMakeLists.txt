@@ -11,9 +11,12 @@ endif()
 find_package(GDAL REQUIRED)
 
 find_package(catkin REQUIRED COMPONENTS
-    gazebo_dev
-    gazebo_msgs
+  gazebo_dev
+  gazebo_msgs
+  gazebo_ros
+  roscpp
 )
+
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Protobuf REQUIRED)
 
@@ -48,8 +51,10 @@ catkin_package(
 	LIBRARIES
     dave_ocean_current_world_plugin
 	CATKIN_DEPENDS
-		gazebo_msgs
 		gazebo_dev
+		gazebo_msgs
+    gazebo_ros
+    roscpp
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/include
@@ -65,16 +70,22 @@ include_directories(${PROJECT_SOURCE_DIR}/include
 link_directories(${catkin_LIBRARY_DIRS}
                  ${GAZEBO_LIBRARY_DIRS}
                  ${GAZEBO_MSG_INCLUDE_DIRS}
-                 ${CMAKE_CURRENT_BINARY_DIR}/msgs
+                 ${CMAKE_CURRENT_BINARY_DIR}
 #                ...
 )
 
-# ocean current world plugin
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${msgs})
-add_library(ocean_current_velocity_msgs SHARED ${PROTO_SRCS})
-target_link_libraries(ocean_current_velocity_msgs ${PROTOBUF_LIBRARY})
-list(APPEND DAVE_GAZEBO_WORLD_PLUGINS_LIST ocean_current_velocity_msgs)
+# gazebo messages
+set(msgs
+  msgs/StratifiedCurrentVelocity.proto
+  ${PROTOBUF_IMPORT_DIRS}/vector3d.proto
+#  ${PROTOBUF_IMPORT_DIRS}/any.proto
+)
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${msgs})
+add_library(dave_gazebo_world_plugins_msgs SHARED ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(dave_gazebo_world_plugins_msgs ${PROTOBUF_LIBRARY})
+list(APPEND DAVE_GAZEBO_WORLD_PLUGINS_LIST dave_gazebo_world_plugins_msgs)
 
+# ocean current world plugin
 add_library(dave_ocean_current_world_plugin
    SHARED
    src/ocean_current_world_plugin.cc
@@ -82,11 +93,11 @@ add_library(dave_ocean_current_world_plugin
    src/tidal_oscillation.cc
 )
 add_dependencies(dave_ocean_current_world_plugin
-   ocean_current_velocity_msgs
+   dave_gazebo_world_plugins_msgs
    ${catkin_EXPORTED_TARGETS}
 )
 target_link_libraries(dave_ocean_current_world_plugin
-   ocean_current_velocity_msgs
+   dave_gazebo_world_plugins_msgs
    ${catkin_LIBRARIES}
    ${PROTOBUF_LIBRARY}
    ${GAZEBO_LIBRARIES}
@@ -99,10 +110,9 @@ target_link_libraries(dave_bathymetry_world_plugin
   ${catkin_LIBRARIES}
   ${GAZEBO_LIBRARIES}
   ${GDAL_LIBRARY}
-  )
+)
 add_dependencies(dave_bathymetry_world_plugin ${catkin_EXPORTED_TARGETS})
 list(APPEND DAVE_GAZEBO_WORLD_PLUGINS_LIST dave_bathymetry_world_plugin)
-
 
 # Plugin compile directions
 
