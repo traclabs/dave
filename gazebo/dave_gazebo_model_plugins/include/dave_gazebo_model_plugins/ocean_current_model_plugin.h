@@ -13,13 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// \file TransientCurrentPlugin.hh
+/// \file ocean_current_model_plugin.h
 /// \brief Plugin for the transient current plugin to publish vehicle depth
 
 #ifndef OCEAN_CURRENT_MODEL_PLUGIN_H_
 #define OCEAN_CURRENT_MODEL_PLUGIN_H_
 
-#include <dave_gazebo_ros_plugins/StratifiedCurrentVelocity.h>
+#include <dave_gazebo_ros_plugins/StratifiedCurrentDatabase.h>
 #include <dave_gazebo_world_plugins/gauss_markov_process.h>
 #include <dave_gazebo_world_plugins/tidal_oscillation.h>
 
@@ -117,7 +117,7 @@ namespace gazebo
     /// \brief Convey model state from gazebo topic to outside
     protected: virtual void UpdateDatabase(
       const dave_gazebo_ros_plugins::
-      StratifiedCurrentVelocity::ConstPtr &_msg);
+      StratifiedCurrentDatabase::ConstPtr &_msg);
 
     /// \brief ROS helper function that processes messages
     private: void databaseSubThread();
