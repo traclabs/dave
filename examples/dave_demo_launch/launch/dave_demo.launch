@@ -2,7 +2,10 @@
 <launch>
     <arg name="gui" default="true"/>
     <arg name="paused" default="false"/>
-    <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves_shipwreck.world"/>
+
+    <!-- <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves_occluded_bottom.world"/> -->
+    <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves_transient_current.world"/>
+    <!-- <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves_shipwreck.world"/> -->
     <!-- <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves.world"/> -->
     <arg name="namespace" default="rexrov"/>
     <arg name="set_timeout" default="false"/>
@@ -135,8 +138,12 @@
     </include>
 
     <!-- grabbable bar -->
-    <!-- <node name="spawn_grabbable_bar" pkg="gazebo_ros" type="spawn_model"
+    <node name="spawn_grabbable_bar" pkg="gazebo_ros" type="spawn_model"
           args="-file $(find dave_object_models)/models/grab_bar/model.sdf -sdf -model grab_bar -z -90">
-    </node> -->
+    </node>
+
+    <node name="spawn_bag" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find gazebo_utils)/models_disco/lock_bag/model.sdf -sdf -model cargo_bag -z -90 -x 10">
+    </node>
 
 </launch>
