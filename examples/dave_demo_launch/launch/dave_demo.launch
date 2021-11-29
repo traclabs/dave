@@ -67,7 +67,7 @@
 
     <!-- rexrov robot with oberon7 arm -->
     <group if="$(arg start_at_origin)">
-      <include file="$(find rexrov_description)/launch/upload_rexrov_dual_oberon7.launch">
+      <include file="$(find rexrov_description)/launch/upload_rexrov_oberon7.launch">
           <arg name="namespace" value="rexrov"/>
           <arg name="x" value="0"/>
           <arg name="y" value="0"/>
@@ -76,7 +76,7 @@
       </include>
     </group>
     <group unless="$(arg start_at_origin)">
-      <include file="$(find rexrov_description)/launch/upload_rexrov_dual_oberon7.launch">
+      <include file="$(find rexrov_description)/launch/upload_rexrov_oberon7.launch">
           <arg name="namespace" value="rexrov"/>
           <arg name="x" value="25"/>
           <arg name="y" value="4"/>
