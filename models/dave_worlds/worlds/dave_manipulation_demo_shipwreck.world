@@ -99,7 +99,8 @@
 
     <model name="platform">
       <static>true</static>
-      <pose>25 -1 -95 0 0 0</pose>
+      <pose>15 -10 -95 0 0 0</pose>
+      <!-- <pose>25 -1 -95 0 0 0</pose> -->
       <link name="link">
         <collision name="collision">
           <geometry>
@@ -119,10 +120,41 @@
       </link>
     </model>
 
+    <model name="place platform">
+      <static>true</static>
+      <pose>5.7 -4.3 -90.8 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 1 0.2</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 1 0.2</size>
+            </box>
+          </geometry>
+        </visual>
+        <surface>
+           <friction>
+             <ode>
+               <mu>1.0</mu>
+               <mu2>1.0</mu2>
+             </ode>
+           </friction>
+        </surface>
+      </link>
+    </model>
+
     <include>
       <static>false</static>
       <uri>model://lock_bag</uri>
-      <pose>25 -1 -94 0 0 0</pose>
+      <pose>25 -1 -93 0 0 0</pose>
+      <!-- <pose>25 -1 -94 0 0 0</pose> -->
     </include>
 
     <plugin name="underwater_current_plugin" filename="libuuv_underwater_current_ros_plugin.so">

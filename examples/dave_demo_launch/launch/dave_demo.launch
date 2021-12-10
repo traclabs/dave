@@ -142,11 +142,11 @@
     <!-- grabbable bar -->
     <!-- <node name="spawn_grabbable_bar" pkg="gazebo_ros" type="spawn_model"
           args="-file $(find dave_object_models)/models/grab_bar/model.sdf -sdf -model grab_bar -z -90 -x 25 -y -1 -P 90">
-    </node>
+    </node> -->
 
     <node name="spawn_bag" pkg="gazebo_ros" type="spawn_model"
-          args="-file $(find gazebo_utils)/models_rum/lock_bag/model.sdf -sdf -model lock_bag -z -90 -x 10">
-    </node> -->
+          args="-file $(find gazebo_utils)/models_rum/lock_bag/model.sdf -sdf -model test_bag -z -80 -x 2 ">
+    </node>
 
 
 
