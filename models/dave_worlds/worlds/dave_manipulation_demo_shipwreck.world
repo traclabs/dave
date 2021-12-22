@@ -99,7 +99,7 @@
 
     <model name="platform">
       <static>true</static>
-      <pose>15 -10 -95 0 0 0</pose>
+      <pose>15 -3 -95 0 0 0</pose>
       <!-- <pose>25 -1 -95 0 0 0</pose> -->
       <link name="link">
         <collision name="collision">
@@ -120,7 +120,7 @@
       </link>
     </model>
 
-    <model name="place platform">
+    <!-- <model name="place platform">
       <static>true</static>
       <pose>5.7 -4.3 -90.8 0 0 0</pose>
       <link name="link">
@@ -148,12 +148,12 @@
            </friction>
         </surface>
       </link>
-    </model>
+    </model> -->
 
     <include>
       <static>false</static>
-      <uri>model://lock_bag</uri>
-      <pose>25 -1 -93 0 0 0</pose>
+      <uri>model://rum_lock_bag</uri>
+      <pose>15 -1 -93 0 0 0</pose>
       <!-- <pose>25 -1 -94 0 0 0</pose> -->
     </include>
 
